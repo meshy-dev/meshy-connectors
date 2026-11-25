@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "connector.schema.json",
+  "title": "A Meshy connector after every layer is merged",
+  "description": "Layer files are checked against this schema with every `required` and `pattern` removed: a layer may set any subset of it, with variables still in its strings, but no key it lacks.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "published", "display_name", "description", "examples", "skill", "mcp", "assets", "host"],
+  "properties": {
+    "id": {
+      "description": "The package's identity on its platform. Frozen once published.",
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "published": {
+      "description": "true once the package is live on its platform.",
+      "type": "boolean"
+    },
+    "display_name": { "$ref": "#/$defs/localized" },
+    "description": { "$ref": "#/$defs/localized" },
+    "examples": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "$ref": "#/$defs/prompts" },
+        "en": { "$ref": "#/$defs/prompts" }
+      }
+    },
+    "skill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "source"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "source": { "description": "A path under base/.", "type": "string" }
+      }
+    },
+    "mcp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "transport", "auth", "timeout_ms", "server_key"],
+      "properties": {
+        "url": { "type": "string", "pattern": "^https://" },
+        "transport": { "enum": ["streamable-http"] },
+        "auth": { "enum": ["oauth"] },
+        "timeout_ms": { "type": "integer", "minimum": 1 },
+        "server_key": {
+          "description": "The key the host files the server under. Frozen once published.",
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["icon"],
+      "properties": {
+        "icon": { "description": "A path under base/.", "type": "string" }
+      }
+    },
+    "host": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ui_cards"],
+      "properties": {
+        "ui_cards": {
+          "description": "Whether the host shows Meshy's model cards (show_model, open_meshy_studio).",
+          "type": "boolean"
+        },
+        "workbuddy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min_version"],
+          "properties": {
+            "min_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "localized": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      }
+    },
+    "prompts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

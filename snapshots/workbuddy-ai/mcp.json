@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "meshy": {
+      "type": "streamableHttp",
+      "url": "https://mcp.meshy.ai/mcp",
+      "timeout": 30000
+    }
+  }
+}

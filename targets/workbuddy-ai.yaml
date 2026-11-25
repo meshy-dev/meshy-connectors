@@ -1,0 +1,11 @@
+exporter: workbuddy
+layers: [site/ai, host/workbuddy]
+
+id: meshy
+version: 0.1.1
+published: true
+display_name:
+  zh: Meshy AI
+  en: Meshy AI
+mcp:
+  server_key: meshy

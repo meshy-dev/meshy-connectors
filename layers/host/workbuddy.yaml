@@ -1,0 +1,5 @@
+# WorkBuddy shows the model cards (show_model, open_meshy_studio) since 4.24.0.
+host:
+  ui_cards: true
+  workbuddy:
+    min_version: 4.24.0

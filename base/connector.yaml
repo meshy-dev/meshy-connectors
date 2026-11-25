@@ -1,0 +1,36 @@
+# What a Meshy connector is, before any site, host or target says otherwise.
+# Platform file names and field names never appear here: exporters/ maps these.
+
+display_name:
+  zh: Meshy 3D
+  en: Meshy 3D
+
+description:
+  zh: 用 Meshy 生成 3D 模型和图片，查看生成进度和积分余额，下载你的模型。
+  en: Generate 3D models and pictures with Meshy, track progress and credits, and download your models.
+
+examples:
+  zh:
+    - 用 Meshy 生成一个卡通风格的木质宝箱 3D 模型
+    - 把这张图片转成 3D 模型
+    - 我还剩多少 Meshy 积分？
+    - 列出我最近生成的模型，下载最新那个的 GLB
+  en:
+    - Generate a cartoon-style wooden treasure chest 3D model with Meshy
+    - Turn this picture into a 3D model
+    - How many Meshy credits do I have left?
+    - List my recent models and download the newest one as GLB
+
+skill:
+  # One hosted-MCP skill for every package; its name follows the server key,
+  # so meshy gets meshy-skill and meshy-3d gets meshy-3d-skill.
+  name: "{{ mcp.server_key }}-skill"
+  source: skill/SKILL.md
+
+mcp:
+  transport: streamable-http
+  auth: oauth
+  timeout_ms: 30000
+
+assets:
+  icon: assets/icon.svg

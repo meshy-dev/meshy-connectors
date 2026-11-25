@@ -1,0 +1,4 @@
+# Meshy's China site. It has no staging environment, and its network cannot
+# reach *.meshy.ai.
+mcp:
+  url: https://mcp.meshy.cn/mcp

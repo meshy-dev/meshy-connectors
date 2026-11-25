@@ -1,0 +1,3 @@
+# A test package against the international staging server; never published.
+mcp:
+  url: https://mcp.staging.meshy.ai/mcp

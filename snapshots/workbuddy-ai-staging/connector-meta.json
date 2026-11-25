@@ -1,0 +1,33 @@
+{
+  "name": "Meshy AI Staging",
+  "name_zh": "Meshy AI Staging",
+  "name_en": "Meshy AI Staging",
+  "description": "Generate 3D models and pictures with Meshy, track progress and credits, and download your models.",
+  "description_zh": "用 Meshy 生成 3D 模型和图片，查看生成进度和积分余额，下载你的模型。",
+  "description_en": "Generate 3D models and pictures with Meshy, track progress and credits, and download your models.",
+  "source": "meshy-staging",
+  "type": "mcp",
+  "auth_mode": "server-side",
+  "version": "0.1.0",
+  "examples_zh": [
+    "用 Meshy 生成一个卡通风格的木质宝箱 3D 模型",
+    "把这张图片转成 3D 模型",
+    "我还剩多少 Meshy 积分？",
+    "列出我最近生成的模型，下载最新那个的 GLB"
+  ],
+  "examples_en": [
+    "Generate a cartoon-style wooden treasure chest 3D model with Meshy",
+    "Turn this picture into a 3D model",
+    "How many Meshy credits do I have left?",
+    "List my recent models and download the newest one as GLB"
+  ],
+  "minWorkbuddyVersion": "4.24.0",
+  "server_auth": {
+    "auth_type": "mcp_oauth",
+    "data": {
+      "mcp_oauth": {
+        "server_url": "https://mcp.staging.meshy.ai/mcp"
+      }
+    }
+  }
+}
