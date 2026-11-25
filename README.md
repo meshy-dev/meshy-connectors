@@ -1,6 +1,6 @@
 # meshy-connectors
 
-Builds the packages that connect a host to Meshy's hosted MCP server (`mcp.meshy.ai`, `mcp.meshy.cn`) from one source: WorkBuddy today, then GPT and Kimi. Each package is the server's connection settings, one hosted-MCP skill, and the name, description, examples and icon a host shows.
+Builds the packages that connect a host to Meshy's hosted MCP server (`mcp.meshy.ai`, `mcp.meshy.cn`) from one source: WorkBuddy and MiniMax today, then GPT and Kimi. Each package is the server's connection settings (on MiniMax, the App that holds them), one hosted-MCP skill, and the name, description, examples and icon a host shows.
 
 Not built here: the CLI and its skills (meshy-3d-agent), the local MCP server, the Codex Plugin Directory bundle, and the Antigravity plugin, which keeps its own repo.
 
@@ -9,7 +9,7 @@ Not built here: the CLI and its skills (meshy-3d-agent), the local MCP server, t
 ```
 base/                    what a Meshy connector is: names, examples, MCP settings, the skill, the icon
   + layers/site/<site>   the server address (ai, cn)
-  + layers/host/<host>   what the host can do and the fields only it reads (workbuddy)
+  + layers/host/<host>   what the host can do and the fields only it reads (workbuddy, minimax)
   + layers/env/<env>     a test package's server (staging)
   + targets/<target>     identity, version, and the few fields only this package has
   → exporters/<platform> the platform's files, zipped into dist/<target>-<version>.zip
@@ -30,8 +30,11 @@ A target lists its layers, which apply in site, host, env order, one of each at 
 | `workbuddy-ai` | site/ai, host/workbuddy | `mcp.meshy.ai` | 0.1.1 | yes |
 | `workbuddy-cn` | site/cn, host/workbuddy | `mcp.meshy.cn` | 0.1.1 | yes |
 | `workbuddy-ai-staging` | site/ai, host/workbuddy, env/staging | `mcp.staging.meshy.ai` | 0.1.0 | no, test only |
+| `minimax-ai` | site/ai, host/minimax | `mcp.meshy.ai` | 0.1.0 | no, waiting for MiniMax |
 
 `workbuddy-ai` and `workbuddy-cn` render file for file the hand-made 0.1.1 packages they replace. There is no China staging package: meshy.cn has no staging server, and its network cannot reach `*.meshy.ai`.
+
+`minimax-ai` is the US region's MiniMax Plugin. It holds no server address: MiniMax allows no OAuth in a plugin's `*.mcp.json`, so MiniMax's Connector connects to `mcp.meshy.ai` and signs users in, and the package's `meshy.app.json` names that App by its provider. MiniMax confirms the provider only after it has connected and tested the server (MiniMax's App (MCP Server) Integration Guide); until then `host.minimax.provider` holds the one Meshy proposes, and the package is not submitted. Submit the zip on MiniMax's form with the US region and the `name` from `plugin.json` (MiniMax's Plugin Development and Submission Guide, §9).
 
 ## Usage
 
@@ -62,4 +65,5 @@ Once a target is `published: true`, its `id`, `mcp.server_key` and skill name st
 - CI: snapshots, the skill's tool names against each site's hosted `tools/list`, frozen identities, version bumps, no internal hosts in public packages.
 - One hosted-MCP skill merged from today's WorkBuddy, GPT and Kimi texts. `base/skill/SKILL.md` is WorkBuddy's 0.1.1 skill, unchanged.
 - The GPT and Kimi exporters.
+- `minimax-cn`, the China region's MiniMax package.
 - The submodule in meshy-integrations.

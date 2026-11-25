@@ -6,6 +6,6 @@ bytes). An exporter only maps fields to the platform's files and names; it never
 decides content.
 """
 
-from . import workbuddy
+from . import minimax, workbuddy
 
-EXPORTERS = {"workbuddy": workbuddy.export}
+EXPORTERS = {"minimax": minimax.export, "workbuddy": workbuddy.export}

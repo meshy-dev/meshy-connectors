@@ -1,0 +1,17 @@
+exporter: minimax
+layers: [site/ai, host/minimax]
+
+id: meshy
+version: 0.1.0
+published: false
+display_name:
+  zh: Meshy AI
+  en: Meshy AI
+mcp:
+  server_key: meshy
+host:
+  minimax:
+    # Proposed: MiniMax confirms the US provider once its Connector is
+    # connected to mcp.meshy.ai and tested. Replace it before submitting.
+    provider: meshy
+    language: en

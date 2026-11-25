@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "name": "meshy",
+  "displayName": "Meshy AI",
+  "version": "0.1.0",
+  "description": "Generate 3D models and pictures with Meshy, track progress and credits, and download your models.",
+  "author": "Meshy",
+  "icon": "icon.png",
+  "category": "Studio",
+  "exampleQueries": [
+    "Generate a cartoon-style wooden treasure chest 3D model with Meshy",
+    "List my recent models and download the newest one as GLB",
+    "How many Meshy credits do I have left?"
+  ],
+  "apps": [
+    "meshy.app.json"
+  ],
+  "mcpServers": [],
+  "skills": [
+    "skills/meshy-skill/SKILL.md"
+  ]
+}

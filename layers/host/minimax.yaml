@@ -1,0 +1,26 @@
+# MiniMax (MiniMax Agent, MiniMax Code). The package holds no server address:
+# MiniMax allows no OAuth in a *.mcp.json, so its Connector connects to the
+# hosted MCP server and signs users in, and the package names that App by the
+# provider MiniMax confirms per region (host.minimax.provider, in the target).
+# MiniMax's guides say nothing of MCP app UI, so the cards are not counted on;
+# show_model then answers as get_task does.
+host:
+  ui_cards: false
+  minimax:
+    category: Studio
+
+# plugin.json's icon is a PNG, JPEG or WebP image.
+assets:
+  icon: assets/icon.png
+
+# plugin.json takes at most three examples, and one is filled in as written,
+# with no attachment: base's "turn this picture into a 3D model" is left out.
+examples:
+  zh:
+    - 用 Meshy 生成一个卡通风格的木质宝箱 3D 模型
+    - 列出我最近生成的模型，下载最新那个的 GLB
+    - 我还剩多少 Meshy 积分？
+  en:
+    - Generate a cartoon-style wooden treasure chest 3D model with Meshy
+    - List my recent models and download the newest one as GLB
+    - How many Meshy credits do I have left?
