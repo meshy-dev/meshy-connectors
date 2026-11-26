@@ -5,7 +5,7 @@
   "description": "Layer files are checked against this schema with every `required` and `pattern` removed: a layer may set any subset of it, with variables still in its strings, but no key it lacks.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "version", "published", "display_name", "description", "examples", "skill", "mcp", "assets", "host"],
+  "required": ["id", "version", "published", "author", "display_name", "description", "examples", "skill", "mcp", "assets", "host"],
   "properties": {
     "id": {
       "description": "The package's identity on its platform. Frozen once published.",
@@ -19,6 +19,11 @@
     "published": {
       "description": "true once the package is live on its platform.",
       "type": "boolean"
+    },
+    "author": {
+      "description": "Who the platform shows as the package's author.",
+      "type": "string",
+      "minLength": 1
     },
     "display_name": { "$ref": "#/$defs/localized" },
     "description": { "$ref": "#/$defs/localized" },
@@ -79,6 +84,26 @@
           "required": ["min_version"],
           "properties": {
             "min_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+          }
+        },
+        "minimax": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["provider", "category", "language"],
+          "properties": {
+            "provider": {
+              "description": "The App MiniMax confirms for the package's region: its Connector holds the server and the sign-in.",
+              "type": "string",
+              "pattern": "^[a-z0-9_-]{1,64}$"
+            },
+            "category": {
+              "enum": ["Office", "Studio", "Design & Sites", "Code", "Business", "Sales", "Productivity",
+                       "Science & Healthcare", "Education", "Other"]
+            },
+            "language": {
+              "description": "The one language of plugin.json's name, description and examples.",
+              "enum": ["zh", "en"]
+            }
           }
         }
       }

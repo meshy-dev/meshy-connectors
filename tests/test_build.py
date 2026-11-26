@@ -117,6 +117,7 @@ class TargetsTest(unittest.TestCase):
     def test_the_skill_takes_the_server_key(self):
         self.assertIn("skills/meshy-3d-skill/SKILL.md", build.render("workbuddy-cn").files)
         self.assertIn("skills/meshy-skill/SKILL.md", build.render("workbuddy-ai").files)
+        self.assertIn("skills/meshy-skill/SKILL.md", build.render("minimax-ai").files)
 
 
 class WorkBuddyExporterTest(unittest.TestCase):
@@ -160,6 +161,58 @@ class WorkBuddyExporterTest(unittest.TestCase):
         config = dict(self.CONFIG, host={"ui_cards": True})
         with self.assertRaisesRegex(ValueError, "needs host.workbuddy"):
             self.export(config)
+
+
+class MiniMaxExporterTest(unittest.TestCase):
+    # zh and en differ, and the id differs from the server key, so a field taken
+    # from the wrong one shows.
+    CONFIG = {
+        "id": "meshy-x", "version": "1.2.3", "published": False, "author": "Author",
+        "display_name": {"zh": "名字", "en": "Name"},
+        "description": {"zh": "描述", "en": "Description"},
+        "examples": {"zh": ["例子"], "en": ["Example one", "Example two"]},
+        "skill": {"name": "meshy-key-skill", "source": "skill/SKILL.md"},
+        "mcp": {"url": "https://mcp.example/mcp", "transport": "streamable-http", "auth": "oauth",
+                "timeout_ms": 1500, "server_key": "meshy-key"},
+        "assets": {"icon": "assets/icon.png"},
+        "host": {"ui_cards": False, "minimax": {"provider": "provider-x", "category": "Studio", "language": "en"}},
+    }
+
+    def export(self, config=None):
+        import json
+        from exporters import minimax
+        files = minimax.export(config or self.CONFIG, {"skill": "skill text", "icon": b"png"})
+        return files, json.loads(files[".minimax-plugin/plugin.json"])
+
+    def test_fields_land_where_minimax_reads_them(self):
+        files, manifest = self.export()
+        self.assertEqual(manifest, {
+            "schemaVersion": 1, "name": "meshy-x", "displayName": "Name", "version": "1.2.3",
+            "description": "Description", "author": "Author", "icon": "icon.png", "category": "Studio",
+            "exampleQueries": ["Example one", "Example two"], "apps": ["meshy-x.app.json"], "mcpServers": [],
+            "skills": ["skills/meshy-key-skill/SKILL.md"]})
+        self.assertEqual(files["meshy-x.app.json"], b'{\n  "schemaVersion": 1,\n  "provider": "provider-x"\n}\n')
+        self.assertEqual(files["skills/meshy-key-skill/SKILL.md"], b"skill text")
+        self.assertEqual(files["icon.png"], b"png")
+        self.assertEqual(sorted(files), [".minimax-plugin/plugin.json", "icon.png", "meshy-x.app.json",
+                                         "skills/meshy-key-skill/SKILL.md"])
+
+    def test_the_language_picks_the_texts(self):
+        minimax = dict(self.CONFIG["host"]["minimax"], language="zh")
+        _, manifest = self.export(dict(self.CONFIG, host={"ui_cards": False, "minimax": minimax}))
+        self.assertEqual((manifest["displayName"], manifest["description"], manifest["exampleQueries"]),
+                         ("名字", "描述", ["例子"]))
+
+    def test_refusals(self):
+        cases = {
+            "needs host.minimax": dict(self.CONFIG, host={"ui_cards": False}),
+            "not a MiniMax plugin name": dict(self.CONFIG, id="3d-meshy"),
+            "at most 3 examples": dict(self.CONFIG, examples={"zh": ["例子"], "en": ["a", "b", "c", "d"]}),
+            "not assets/icon.svg": dict(self.CONFIG, assets={"icon": "assets/icon.svg"}),
+        }
+        for message, config in cases.items():
+            with self.subTest(message), self.assertRaisesRegex(ValueError, message):
+                self.export(config)
 
 
 class ZipTest(unittest.TestCase):

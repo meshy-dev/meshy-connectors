@@ -1,6 +1,8 @@
 # What a Meshy connector is, before any site, host or target says otherwise.
 # Platform file names and field names never appear here: exporters/ maps these.
 
+author: Meshy
+
 display_name:
   zh: Meshy 3D
   en: Meshy 3D
