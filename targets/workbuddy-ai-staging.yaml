@@ -2,7 +2,7 @@ exporter: workbuddy
 layers: [site/ai, host/workbuddy, env/staging]
 
 id: meshy-staging
-version: 0.1.0
+version: 0.1.1
 published: false
 display_name:
   zh: Meshy AI Staging
