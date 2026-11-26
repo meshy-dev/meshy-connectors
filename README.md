@@ -27,12 +27,12 @@ A target lists its layers, which apply in site, host, env order, one of each at 
 
 | Target | Layers | Server | Version | Published |
 |---|---|---|---|---|
-| `workbuddy-ai` | site/ai, host/workbuddy | `mcp.meshy.ai` | 0.1.1 | yes |
-| `workbuddy-cn` | site/cn, host/workbuddy | `mcp.meshy.cn` | 0.1.1 | yes |
-| `workbuddy-ai-staging` | site/ai, host/workbuddy, env/staging | `mcp.staging.meshy.ai` | 0.1.0 | no, test only |
-| `minimax-ai` | site/ai, host/minimax | `mcp.meshy.ai` | 0.1.0 | no, waiting for MiniMax |
+| `workbuddy-ai` | site/ai, host/workbuddy | `mcp.meshy.ai` | 0.1.2 | yes |
+| `workbuddy-cn` | site/cn, host/workbuddy | `mcp.meshy.cn` | 0.1.2 | yes |
+| `workbuddy-ai-staging` | site/ai, host/workbuddy, env/staging | `mcp.staging.meshy.ai` | 0.1.1 | no, test only |
+| `minimax-ai` | site/ai, host/minimax | `mcp.meshy.ai` | 0.1.1 | no, waiting for MiniMax |
 
-`workbuddy-ai` and `workbuddy-cn` render file for file the hand-made 0.1.1 packages they replace. There is no China staging package: meshy.cn has no staging server, and its network cannot reach `*.meshy.ai`.
+At 0.1.1, `workbuddy-ai` and `workbuddy-cn` rendered file for file the hand-made 0.1.1 packages they replaced; since 0.1.2 every package takes `workbuddy-cn`'s description from base, under its own name. There is no China staging package: meshy.cn has no staging server, and its network cannot reach `*.meshy.ai`.
 
 `minimax-ai` is the US region's MiniMax Plugin. It holds no server address: MiniMax allows no OAuth in a plugin's `*.mcp.json`, so MiniMax's Connector connects to `mcp.meshy.ai` and signs users in, and the package's `meshy.app.json` names that App by its provider. MiniMax confirms the provider only after it has connected and tested the server (MiniMax's App (MCP Server) Integration Guide); until then `host.minimax.provider` holds the one Meshy proposes, and the package is not submitted. Submit the zip on MiniMax's form with the US region and the `name` from `plugin.json` (MiniMax's Plugin Development and Submission Guide, §9).
 

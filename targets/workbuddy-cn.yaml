@@ -2,9 +2,7 @@ exporter: workbuddy
 layers: [site/cn, host/workbuddy]
 
 id: meshy-3d
-version: 0.1.1
+version: 0.1.2
 published: true
-description:
-  zh: 连接 Meshy 3D，在对话中直接完成 3D 创作：用文字或图片生成 3D 模型，随时查看生成进度与积分余额，并一键下载模型文件。
 mcp:
   server_key: meshy-3d

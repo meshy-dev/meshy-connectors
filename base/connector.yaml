@@ -8,8 +8,8 @@ display_name:
   en: Meshy 3D
 
 description:
-  zh: 用 Meshy 生成 3D 模型和图片，查看生成进度和积分余额，下载你的模型。
-  en: Generate 3D models and pictures with Meshy, track progress and credits, and download your models.
+  zh: 连接 {{ display_name.zh }}，在对话中直接完成 3D 创作：用文字或图片生成 3D 模型，随时查看生成进度与积分余额，并一键下载模型文件。
+  en: "Connect {{ display_name.en }} and create in 3D right in the chat: generate 3D models from text or pictures, check progress and your credit balance anytime, and download model files in one click."
 
 examples:
   zh:
